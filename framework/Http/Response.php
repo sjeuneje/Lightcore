@@ -10,4 +10,9 @@ class Response
         private array $headers = []
     )
     {}
+
+    public function send(): void
+    {
+        echo $this->content;
+    }
 }

@@ -1,11 +1,14 @@
 <?php declare(strict_types=1);
 
+use Lightcore\Framework\Http\Request;
+use Lightcore\Framework\Http\Response;
+
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-$request = \Lightcore\Framework\Http\Request::createFromGlobals();
+$request = Request::createFromGlobals();
 
-$content = "Hello world";
+$content = '<h1>Hello world</h1>';
 
-$response = new Reponse(content: $content, status: 200, headers: []);
+$response = new Response(content: $content, status: 200, headers: []);
 
 $response->send();
