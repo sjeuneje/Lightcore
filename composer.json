@@ -1,0 +1,21 @@
+{
+    "name": "sachajeunejean/lightcore",
+    "description": "A lightweight PHP Framework",
+    "type": "project",
+    "minimum-stability": "dev",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/",
+            "Lightcore\\Framework\\": "framework/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Sacha Jeunejean"
+        }
+    ],
+    "require-dev": {
+        "symfony/var-dumper": "7.0.x-dev"
+    }
+}
