@@ -4,6 +4,8 @@ use Lightcore\Framework\Http\Kernel;
 use Lightcore\Framework\Http\Request;
 use Lightcore\Framework\Http\Response;
 
+define('BASE_PATH', dirname(__DIR__));
+
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 $request = Request::createFromGlobals();
