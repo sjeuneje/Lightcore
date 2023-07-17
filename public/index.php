@@ -1,5 +1,6 @@
 <?php declare(strict_types=1);
 
+use Lightcore\Framework\Database\Database;
 use Lightcore\Framework\Http\Kernel;
 use Lightcore\Framework\Http\Request;
 use Lightcore\Framework\Http\Response;
@@ -8,10 +9,12 @@ define('BASE_PATH', dirname(__DIR__));
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-$request = Request::createFromGlobals();
+// $request = Request::createFromGlobals();
 
-$kernel = new Kernel($request);
+// $kernel = new Kernel($request);
 
-$response = $kernel->handle($request);
+// $response = $kernel->handle($request);
 
-$response->send();
+// $response->send();
+
+$db = new Database();
