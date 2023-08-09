@@ -15,6 +15,7 @@ class Kernel
             $routes = include BASE_PATH . '/routes/web.php';
 
             foreach ($routes as $route) {
+                $route[1] = rtrim($_SERVER['REQUEST_URI'], '/') . $route[1];
                 $routeCollector->addRoute(...$route);
             }
         });
