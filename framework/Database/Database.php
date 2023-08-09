@@ -18,6 +18,7 @@ class DB
         ];
 
         $connection = new Connection($config['host'], $config['database'], $config['username'], $config['password']);
+        
         return new QueryBuilder($connection, $tableName);
     }
 }
