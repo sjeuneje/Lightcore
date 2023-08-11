@@ -1,7 +1,6 @@
-.env.example
+.env
 .vendor
 composer.lock
 /vendor/
 .htaccess
 .DS_Store
-/src/

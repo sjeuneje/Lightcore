@@ -7,6 +7,9 @@ define('BASE_PATH', dirname(__DIR__));
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
 $request = Request::createFromGlobals();
 
 $kernel = new Kernel($request);
