@@ -1,4 +1,4 @@
-.env
+/config/.env
 .vendor
 composer.lock
 /vendor/

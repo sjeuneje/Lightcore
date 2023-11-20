@@ -5,10 +5,17 @@ use Lightcore\Framework\Http\Request;
 
 define('BASE_PATH', dirname(__DIR__));
 
-require_once dirname(__DIR__) . '/vendor/autoload.php';
+require_once BASE_PATH . '/vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
+/*
+|--------------------------------------------------------------------------
+| Launch all the resources needed
+|--------------------------------------------------------------------------
+| 
+| app.php will load all the resources the application need.
+|
+*/
+require_once BASE_PATH . '/bootstrap/app.php';
 
 $request = Request::createFromGlobals();
 
