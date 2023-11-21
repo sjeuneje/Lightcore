@@ -13,6 +13,8 @@ class WelcomeController
 
         $tasks = DB::table('tasks')->get();
 
+        dump($tasks);
+
         return new Response($content);
     }
 }

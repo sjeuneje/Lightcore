@@ -22,10 +22,6 @@ $request = Request::createFromGlobals();
 
 $kernel = new Kernel($request);
 
-$tasks = DB::table('tasks')->get();
-
-dump($tasks);
-
 $response = $kernel->handle($request);
 
 $response->send();
