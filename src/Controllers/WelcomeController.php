@@ -2,13 +2,16 @@
 
 namespace App\Controllers;
 
+use Lightcore\Framework\Database\DB;
 use Lightcore\Framework\Http\Response;
 
 class WelcomeController
 {
-    public function index()
+    public function index(): Response
     {
-        $content = dirname(__FILE__) . '../../../resources/views/welcome.php';
+        $content = BASE_PATH . '/resources/views/welcome.php';
+
+        $tasks = DB::table('tasks')->get();
 
         return new Response($content);
     }

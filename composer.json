@@ -20,6 +20,7 @@
     },
     "require": {
         "nikic/fast-route": "^2.0@dev",
-        "vlucas/phpdotenv": "^5.5@dev"
+        "vlucas/phpdotenv": "^5.5@dev",
+      "ext-pdo": "*"
     }
 }
