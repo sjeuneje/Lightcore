@@ -1,3 +1,7 @@
+<?php
+/** @var $tasks */
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -15,4 +19,3 @@
     </ul>
 </body>
 </html>
-<?php /** @var $tasks */ ?>
