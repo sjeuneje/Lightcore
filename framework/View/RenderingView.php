@@ -7,6 +7,8 @@ use Lightcore\Framework\Contracts\View\ShouldRender;
 class RenderingView implements ShouldRender
 {
     private View $view;
+    private const HEADER_PATH = BASE_PATH . '/bootstrap/views/header.php';
+    private const FOOTER_PATH = BASE_PATH . '/bootstrap/views/footer.php';
 
     public function __construct(View $view)
     {
@@ -21,6 +23,8 @@ class RenderingView implements ShouldRender
             }
         }
 
+        include self::HEADER_PATH;
         include  $this->view->path;
+        include self::FOOTER_PATH;
     }
 }

@@ -5,8 +5,6 @@ namespace App\Controllers;
 use Lightcore\Framework\Database\DB;
 use Lightcore\Framework\Http\Controller;
 use Lightcore\Framework\Http\Response;
-use Lightcore\Framework\Utils\GeneratePHPDoc;
-use Lightcore\Framework\View\View;
 
 class WelcomeController extends Controller
 {

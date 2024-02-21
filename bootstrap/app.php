@@ -2,6 +2,8 @@
 
 use Lightcore\Framework\Database\DB;
 
+require_once BASE_PATH . '/framework/utils/config.php';
+
 $dotenv = Dotenv\Dotenv::createImmutable(BASE_PATH);
 $dotenv->load();
 
