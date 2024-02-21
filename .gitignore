@@ -4,3 +4,5 @@ composer.lock
 /vendor/
 .htaccess
 .DS_Store
+.env
+src

@@ -7,7 +7,7 @@ $dotenv->load();
 
 $container = new \Lightcore\Framework\IoC\Container();
 
-$container->bind(PDO::class, function ($container) {
+$container->bind(PDO::class, function () {
     $config = [
         'host' => $_ENV['DB_HOST'],
         'dbname' => $_ENV['DB_DATABASE'],

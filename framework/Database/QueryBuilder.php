@@ -7,30 +7,30 @@ use PDO;
 class QueryBuilder
 {
     protected PDO $pdo;
-    protected $table;
-    protected $fields = '*';
-    protected $wheres = [];
+    protected string $table;
+    protected mixed $fields = '*';
+    protected array $wheres = [];
 
     public function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
     }
 
-    public function table($table): static
+    public function table(string $table): static
     {
         $this->table = $table;
 
         return $this;
     }
 
-    public function select($fields): static
+    public function select(mixed $fields): static
     {
         $this->fields = $fields;
 
         return $this;
     }
 
-    public function where($column, $operator, $value): static
+    public function where(string $column, string $operator, mixed $value): static
     {
         $this->wheres[] = [
             'type' => 'AND',
@@ -65,5 +65,14 @@ class QueryBuilder
         $stmt->execute($bindedValues);
 
         return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function insert(array $values): bool|array
+    {
+        $query = 'INSERT INTO ' . $this->table . ' (' . ')';
+
+//        $stmt = $this->pdo->prepare($query);
+//        $bindedValues = array_column($values);
+        return [];
     }
 }
