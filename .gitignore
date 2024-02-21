@@ -5,6 +5,4 @@ composer.lock
 .htaccess
 .DS_Store
 .env
-src
 .idea
-resources
