@@ -4,11 +4,12 @@ namespace Lightcore\Framework\Http;
 
 use FastRoute\RouteCollector;
 
+use Lightcore\Framework\View\View;
 use function FastRoute\simpleDispatcher;
 
 class Kernel
 {
-    public function handle(Request $request): Response
+    public function handle(Request $request): Response|View
     {
         $dispatcher = simpleDispatcher(function (RouteCollector $routeCollector) {
 
@@ -27,8 +28,6 @@ class Kernel
 
         [$status, [$controller, $method], $vars] = $routeInfo;
 
-        $response = call_user_func_array([new $controller, $method], $vars);
-
-        return $response;
+        return call_user_func_array([new $controller, $method], $vars);
     }
 }

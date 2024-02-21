@@ -7,3 +7,4 @@ composer.lock
 .env
 src
 .idea
+resources

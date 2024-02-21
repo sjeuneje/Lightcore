@@ -2,10 +2,13 @@
 
 namespace Lightcore\Framework\Http;
 
+use Lightcore\Framework\View\RenderingView;
+use Lightcore\Framework\View\View;
+
 class Response
 {
     public function __construct(
-        private ?string $content = '',
+        private View $view,
         private int $status = 200,
         private array $headers = []
     )
@@ -13,6 +16,6 @@ class Response
 
     public function send(): void
     {
-        include $this->content;
+        (new RenderingView($this->view))->render();
     }
 }

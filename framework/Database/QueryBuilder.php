@@ -2,9 +2,10 @@
 
 namespace Lightcore\Framework\Database;
 
+use Lightcore\Framework\Contracts\Database\HasQueries;
 use PDO;
 
-class QueryBuilder
+class QueryBuilder implements HasQueries
 {
     protected PDO $pdo;
     protected string $table;
@@ -65,14 +66,5 @@ class QueryBuilder
         $stmt->execute($bindedValues);
 
         return $stmt->fetchAll(PDO::FETCH_OBJ);
-    }
-
-    public function insert(array $values): bool|array
-    {
-        $query = 'INSERT INTO ' . $this->table . ' (' . ')';
-
-//        $stmt = $this->pdo->prepare($query);
-//        $bindedValues = array_column($values);
-        return [];
     }
 }

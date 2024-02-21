@@ -26,7 +26,7 @@ class DB
     {
         if (!self::$instance) {
             $pdo = self::$container->resolve(PDO::class);
-            self::$instance = new Model($pdo);
+            self::$instance = new QueryBuilder($pdo);
         }
 
         return self::$instance;
