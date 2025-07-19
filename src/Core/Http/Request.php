@@ -16,7 +16,7 @@ class Request
      *
      * @var array<string>
      */
-    private const VALID_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'];
+    private const VALID_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
 
     /**
      * Maximum request body size (5MB)
