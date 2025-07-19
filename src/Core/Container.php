@@ -4,13 +4,12 @@ namespace Core;
 
 use Closure;
 use Exception;
-use Psr\Container\ContainerInterface;
 
 /**
  * A simple service container that manages bindings and resolves dependencies.
  * Implements the PSR-11 Container Interface.
  */
-class Container implements ContainerInterface
+class Container
 {
     protected array $bindings = [];
 
