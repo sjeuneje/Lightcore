@@ -1,6 +1,7 @@
 ```
 Lightcore framework in progresss...
 ===================================
+
 - Autoloading & Namespace: Automatic class loading following PSR-4 standards.
 - Service Container: Manages dependencies and service resolution.
 - Request/Response HTTP: Encapsulates input and output data.
