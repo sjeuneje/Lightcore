@@ -17,10 +17,10 @@ class Router {
      * Registers a GET route.
      *
      * @param string $path The path for the route.
-     * @param callable $handler The handler for the route.
+     * @param $handler The handler for the route.
      * @return void
      */
-    public static function get(string $path, callable $handler): void
+    public static function get(string $path, $handler): void
     {
         self::addRoute('GET', $path, $handler);
     }
@@ -29,10 +29,10 @@ class Router {
      * Registers a POST route.
      *
      * @param string $path The path for the route.
-     * @param callable $handler The handler for the route.
+     * @param $handler The handler for the route.
      * @return void
      */
-    public static function post(string $path, callable $handler): void
+    public static function post(string $path, $handler): void
     {
         self::addRoute('POST', $path, $handler);
     }
@@ -41,10 +41,10 @@ class Router {
      * Registers a PATCH route.
      *
      * @param string $path The path for the route.
-     * @param callable $handler The handler for the route.
+     * @param $handler The handler for the route.
      * @return void
      */
-    public static function patch(string $path, callable $handler): void
+    public static function patch(string $path, $handler): void
     {
         self::addRoute('PATCH', $path, $handler);
     }
@@ -53,10 +53,10 @@ class Router {
      * Registers a DELETE route.
      *
      * @param string $path The path for the route.
-     * @param callable $handler The handler for the route.
+     * @param $handler The handler for the route.
      * @return void
      */
-    public static function delete(string $path, callable $handler): void
+    public static function delete(string $path, $handler): void
     {
         self::addRoute('DELETE', $path, $handler);
     }
@@ -66,10 +66,10 @@ class Router {
      *
      * @param string $method The HTTP method for the route.
      * @param string $path The path for the route.
-     * @param callable $handler The handler for the route.
+     * @param $handler The handler for the route.
      * @return void
      */
-    private static function addRoute(string $method, string $path, callable $handler): void
+    private static function addRoute(string $method, string $path, $handler): void
     {
         self::$routes[] = new Route($method, $path, $handler);
     }
