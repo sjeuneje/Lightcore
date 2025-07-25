@@ -313,10 +313,10 @@ class Response
     /**
      * Send the response to the browser
      *
-     * @return void
+     * @return Response
      * @throws RuntimeException If headers are already sent
      */
-    public function send(): void
+    public function send(): Response
     {
         if (headers_sent($file, $line)) {
             throw new RuntimeException("Headers already sent in $file on line $line");
@@ -337,6 +337,8 @@ class Response
 
         // Send content
         echo $this->content;
+
+        return $this;
     }
 
     /**

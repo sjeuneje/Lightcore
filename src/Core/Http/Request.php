@@ -2,6 +2,8 @@
 
 namespace Core\Http;
 
+use Exception;
+
 /**
  * HTTP Request handler with lazy loading and normalized access
  *
@@ -101,6 +103,13 @@ class Request
      * @var string|null
      */
     private ?string $rawBody = null;
+
+    /**
+     * Store route parameters for validation
+     *
+     * @var array<string, mixed>
+     */
+    private array $params = [];
 
     /**
      * Initialize request (usually from superglobals)
@@ -235,21 +244,19 @@ class Request
     }
 
     /**
-     * Get input parameter from query or body
+     * Get a parameter by key, including route parameters
      *
-     * @param string $key Parameter name
-     * @param mixed $default Default value if parameter not found
-     * @return mixed Parameter value or default
+     * @param string $key
+     * @param mixed $default
+     * @return mixed
      */
     public function input(string $key, mixed $default = null): mixed
     {
-        $query = $this->getAllQuery();
-        if (array_key_exists($key, $query)) {
-            return $query[$key];
+        if (array_key_exists($key, $this->params)) {
+            return $this->params[$key];
         }
 
-        $body = $this->getAllBody();
-        return $body[$key] ?? $default;
+        return $default;
     }
 
     /**
@@ -586,5 +593,57 @@ class Request
         }
 
         return $filesData[$key] ?? null;
+    }
+
+    /**
+     * Set parameters extracted from the route
+     *
+     * @param array<string, mixed> $params
+     */
+    public function setParams(array $params): void
+    {
+        $this->params = $params;
+    }
+
+    /**
+     * Validate request parameters against provided rules.
+     *
+     * @param array<string, string> $rules Key-value pairs of parameter names and validation rules
+     * @throws Exception if validation fails
+     */
+    public function validate(array $rules): void
+    {
+        foreach ($rules as $key => $rule) {
+            $value = $this->input($key) ?? $this->post($key);
+
+            $rulesArray = explode('|', $rule);
+            foreach ($rulesArray as $currentRule) {
+                switch ($currentRule) {
+                    case 'required':
+                        if (is_null($value) || $value === '') {
+                            throw new Exception("The parameter '$key' is required.");
+                        }
+                        break;
+
+                    case 'string':
+                        if (!is_string($value)) {
+                            throw new Exception("The parameter '$key' must be a string.");
+                        }
+                        break;
+
+                    case 'integer':
+                        if (!is_int($value)) {
+                            $valueAsInt = filter_var($value, FILTER_VALIDATE_INT);
+                            if ($valueAsInt === false) {
+                                throw new Exception("The parameter '$key' must be an integer.");
+                            }
+                        }
+                        break;
+
+                    default:
+                        throw new Exception("Unknown validation rule: '$currentRule' for parameter '$key'.");
+                }
+            }
+        }
     }
 }
