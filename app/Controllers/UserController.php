@@ -2,6 +2,7 @@
 
 namespace app\Controllers;
 
+use app\Models\User;
 use Core\Http\Request;
 use Core\Http\Response;
 
@@ -19,8 +20,6 @@ class UserController
             'age' => 24
         ]
     ];
-
-    public function __construct() {}
 
     public function index(Request $request): Response
     {

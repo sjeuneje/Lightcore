@@ -3,6 +3,7 @@
 use App\Controllers\UserController;
 use Core\Autoloader;
 use Core\Container;
+use Core\Http\Dispatcher;
 use Core\Http\Factory\RequestFactory;
 use Core\Http\Request;
 use Core\Http\Response;
@@ -32,4 +33,4 @@ $request = $container->get(Request::class);
 
 require_once '../routes/web.php';
 
-Router::dispatch($request);
+Dispatcher::dispatch($request);
