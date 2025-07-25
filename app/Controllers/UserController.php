@@ -1,8 +1,7 @@
 <?php
 
-namespace app\Controllers;
+namespace App\Controllers;
 
-use app\Models\User;
 use Core\Http\Request;
 use Core\Http\Response;
 
