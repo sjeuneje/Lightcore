@@ -2,10 +2,11 @@
 
 namespace App\Controllers;
 
+use Core\Http\BaseController;
 use Core\Http\Request;
 use Core\Http\Response;
 
-class UserController
+class UserController extends BaseController
 {
     private array $users = [
         [
@@ -22,8 +23,9 @@ class UserController
 
     public function index(Request $request): Response
     {
-        return Response::html(json_encode($this->users))->send();
+        return Response::html(json_encode($this->users));
     }
+
 
     public function store(Request $request): Response
     {
@@ -43,21 +45,21 @@ class UserController
         return Response::json([
             'message' => 'User created.',
             'data' => $user
-        ])->send();
+        ]);
     }
 
     public function show(Request $request): Response
     {
         foreach ($this->users as $user) {
             if ($user['id'] === (int) $request->input('id')) {
-                return Response::html(json_encode($user))->send();
+                return Response::html(json_encode($user));
             }
         }
 
         return Response::html(json_encode([
             'error' => 'Error: user not found',
             'data' => []
-        ]))->send();
+        ]));
     }
 
     public function update(Request $request): Response
@@ -69,10 +71,11 @@ class UserController
         ]);
 
         foreach ($this->users as &$user) {
-            if ($user['id'] === (int) $request->post('id')) {
+            if ($user['id'] === (int)$request->post('id')) {
                 if ($request->post('name') !== null) {
                     $user['name'] = $request->post('name');
                 }
+
                 if ($request->post('age') !== null) {
                     $user['age'] = $request->post('age');
                 }
@@ -80,14 +83,14 @@ class UserController
                 return Response::json([
                     'message' => 'User updated.',
                     'data' => $user
-                ])->send();
+                ]);
             }
         }
 
         return Response::html(json_encode([
             'error' => 'Error: user not found',
             'data' => []
-        ]))->send();
+        ]));
     }
 
     public function delete(Request $request): Response
@@ -102,13 +105,13 @@ class UserController
                 return Response::json([
                     'message' => 'User deleted.',
                     'data' => $this->users
-                ])->send();
+                ]);
             }
         }
 
         return Response::html(json_encode([
             'error' => 'Error: user not found',
             'data' => []
-        ]))->send();
+        ]));
     }
 }

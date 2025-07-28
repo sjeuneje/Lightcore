@@ -17,7 +17,7 @@ class Router {
      * Registers a GET route.
      *
      * @param string $path The path for the route.
-     * @param $handler The handler for the route.
+     * @param $handler
      * @return void
      */
     public static function get(string $path, $handler): void
@@ -29,7 +29,7 @@ class Router {
      * Registers a POST route.
      *
      * @param string $path The path for the route.
-     * @param $handler The handler for the route.
+     * @param $handler
      * @return void
      */
     public static function post(string $path, $handler): void
@@ -40,8 +40,8 @@ class Router {
     /**
      * Registers a PATCH route.
      *
-     * @param string $path The path for the route.
-     * @param $handler The handler for the route.
+     * @param string $path Path for the route.
+     * @param $handler
      * @return void
      */
     public static function patch(string $path, $handler): void
@@ -53,7 +53,7 @@ class Router {
      * Registers a DELETE route.
      *
      * @param string $path The path for the route.
-     * @param $handler The handler for the route.
+     * @param $handler
      * @return void
      */
     public static function delete(string $path, $handler): void
@@ -66,7 +66,7 @@ class Router {
      *
      * @param string $method The HTTP method for the route.
      * @param string $path The path for the route.
-     * @param $handler The handler for the route.
+     * @param $handler
      * @return void
      */
     private static function addRoute(string $method, string $path, $handler): void

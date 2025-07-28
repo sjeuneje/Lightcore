@@ -1,7 +1,12 @@
 <?php
 
 use Core\Http\Router;
-use app\Controllers\UserController;
+use App\Controllers\UserController;
+
+Router::get('/', function () {
+   $html = "<h1>Welcome to Lightcore.</h1>";
+   return \Core\Http\Response::html($html);
+});
 
 Router::get('users', [UserController::class, 'index']);
 Router::post('users', [UserController::class, 'store']);

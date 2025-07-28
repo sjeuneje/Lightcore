@@ -15,6 +15,4 @@ Autoloader::register();
 $kernel = new Kernel();
 $request = RequestFactory::createFromGlobals();
 $response = $kernel->handle($request);
-
-// Send response
 $response->send();
