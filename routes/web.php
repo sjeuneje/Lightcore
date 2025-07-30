@@ -7,7 +7,9 @@ use Core\Views\View;
 
 Router::get('/', function () {
     return Response::view(
-        new View('welcome')
+        new View('welcome', [
+            'frameworkName' => 'Lightcore'
+        ])
     );
 });
 
