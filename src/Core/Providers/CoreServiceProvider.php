@@ -32,11 +32,6 @@ class CoreServiceProvider extends ServiceProvider
     /**
      * Register core HTTP services into the container.
      *
-     * Binds the essential HTTP components as singletons:
-     * - Request: Created from PHP globals ($_GET, $_POST, etc.)
-     * - Response: Empty response instance ready for content
-     * - Router: Application router for handling routes
-     *
      * @param Container $container The service container
      * @return void
      *
