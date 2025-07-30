@@ -3,6 +3,7 @@
 namespace Core\Http;
 
 use RuntimeException;
+use Core\Views\BaseView;
 
 /**
  * HTTP Response class
@@ -36,7 +37,7 @@ class Response
      *
      * @var string
      */
-    private string $content = '';
+    private string|BaseView $content = '';
 
     /**
      * Response status code, default 200
@@ -55,11 +56,11 @@ class Response
     /**
      * Create a new Response instance
      *
-     * @param string $content Response content
+     * @param string|BaseView $content Response content
      * @param int $statusCode HTTP status code
      * @param array $headers HTTP headers
      */
-    public function __construct(string $content = '', int $statusCode = self::HTTP_OK, array $headers = [])
+    public function __construct(string|BaseView $content = '', int $statusCode = self::HTTP_OK, array $headers = [])
     {
         $this->content = $content;
         $this->statusCode = $statusCode;
@@ -83,6 +84,18 @@ class Response
         }
 
         return new self($json, $statusCode, ['Content-Type' => 'application/json; charset=utf-8']);
+    }
+
+    /**
+     * Create a view response
+     *
+     * @param BaseView $view View instance
+     * @param int $statusCode HTTP status code
+     * @return self
+     */
+    public static function view(BaseView $view, int $statusCode = self::HTTP_OK): self
+    {
+        return new self($view, $statusCode, ['Content-Type' => 'text/html; charset=utf-8']);
     }
 
     /**
@@ -241,12 +254,17 @@ class Response
     }
 
     /**
-     * Get the response content
+     * Get the response content as string
      *
      * @return string
      */
     public function getContent(): string
     {
+        if ($this->content instanceof BaseView) {
+            $this->content->render();
+            return (string) $this->content;
+        }
+
         return $this->content;
     }
 
@@ -277,7 +295,7 @@ class Response
      */
     public function getContentLength(): int
     {
-        return strlen($this->content);
+        return strlen($this->getContent());
     }
 
     /**
@@ -357,7 +375,7 @@ class Response
             "HTTP/1.1 %d\n%s\n\n%s",
             $this->statusCode,
             implode("\n", $headers),
-            $this->content
+            $this->getContent()
         );
     }
 }

@@ -81,7 +81,7 @@ class Kernel
      * Processes the request through the application pipeline and returns
      * the corresponding HTTP response.
      *
-     * @param Request $request The incoming HTTP request
+     * @param Request|null $request The incoming HTTP request
      * @return Response The HTTP response
      * @throws HttpException
      */

@@ -44,11 +44,6 @@ class CoreServiceProvider extends ServiceProvider
      */
     public function register(Container $container): void
     {
-        // Register HTTP Request as singleton from global variables
-        $container->singleton(Request::class, function() {
-            return RequestFactory::createFromGlobals();
-        });
-
         // Register empty HTTP Response as singleton
         $container->singleton(Response::class, function() {
             return new Response();
@@ -63,7 +58,7 @@ class CoreServiceProvider extends ServiceProvider
     /**
      * Bootstrap core HTTP services.
      *
-     * Currently no bootstrapping logic is required for core services.
+     * Currently, no bootstrapping logic is required for core services.
      * This method is available for future enhancements such as:
      * - Route middleware registration
      * - Global response headers

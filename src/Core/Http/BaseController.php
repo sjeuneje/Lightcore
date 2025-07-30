@@ -2,7 +2,7 @@
 
 namespace Core\Http;
 
-class BaseController
+abstract class BaseController
 {
     //TODO
 }
