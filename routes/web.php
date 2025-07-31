@@ -8,7 +8,12 @@ use Core\Views\View;
 Router::get('/', function () {
     class User extends \Core\Database\Model {}
 
-    dd(User::find(1));
+    $user = User::find(2);
+    $user->update(['name' => 'sacha']);
+
+    $user = $user->fresh();
+
+    dd($user);
 
     return Response::view(
         new View('welcome', [

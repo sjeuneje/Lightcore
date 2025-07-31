@@ -114,4 +114,42 @@ abstract class Model
     {
         return $this->primaryKey;
     }
+
+    public function update(array $attributes = []): bool
+    {
+        if (empty($this->attributes[$this->primaryKey])) {
+            return false;
+        }
+
+        return DB::table($this->getTable())
+            ->where($this->primaryKey, '=', $this->attributes[$this->primaryKey])
+            ->update($attributes);
+    }
+
+    public function delete(): bool
+    {
+        if (empty($this->attributes[$this->primaryKey])) {
+            return false;
+        }
+
+        return DB::table($this->getTable())
+            ->where($this->primaryKey, '=', $this->attributes[$this->primaryKey])
+            ->delete();
+    }
+
+    public function fresh(): ?static
+    {
+        if (empty($this->attributes[$this->primaryKey]))
+            return null;
+
+        $freshData = DB::table($this->getTable())
+            ->where($this->primaryKey, '=', $this->attributes[$this->primaryKey])
+            ->first();
+
+        if ($freshData) {
+            return new static($freshData);
+        }
+
+        return null;
+    }
 }
