@@ -414,4 +414,14 @@ class QueryBuilder
 
         return $query;
     }
+
+    /**
+     * Check if there is at least one record on the DB.
+     *
+     * @return bool
+     */
+    public function exists(): bool
+    {
+        return $this->limit(1)->get() > 0;
+    }
 }
