@@ -152,4 +152,24 @@ abstract class Model
 
         return null;
     }
+
+    public function __get(string $key)
+    {
+        return $this->attributes[$key];
+    }
+
+    public function __set(string $key, string $value)
+    {
+        $this->attributes[$key] = $value;
+    }
+
+    public function getAttributes(string $key): mixed
+    {
+        return $this->attributes[$key];
+    }
+
+    public function setAttribute(string $key, string $value): void
+    {
+        $this->attributes[$key] = $value;
+    }
 }

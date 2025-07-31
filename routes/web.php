@@ -9,10 +9,6 @@ Router::get('/', function () {
     class User extends \Core\Database\Model {}
 
     $user = User::find(2);
-    $user->update(['name' => 'sacha']);
-
-    $user = $user->fresh();
-
     dd($user);
 
     return Response::view(
