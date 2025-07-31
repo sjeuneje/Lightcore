@@ -12,36 +12,12 @@ use Core\Database\DB;
  */
 abstract class Model
 {
-    /**
-     * The table associated with the model
-     */
     protected string $table = "";
-
-    /**
-     * The primary key for the model
-     */
     protected string $primaryKey = "id";
-
-    /**
-     * The attributes that are mass assignable
-     */
     protected array $fillable = [];
-
-    /**
-     * The model's attributes
-     */
     protected array $attributes = [];
-
-    /**
-     * Indicates if the model exists in database
-     */
     protected bool $exists = false;
 
-    /**
-     * Create a new model instance
-     *
-     * @param array $attributes Initial attributes to fill
-     */
     public function __construct(array $attributes = [])
     {
         if (!empty($attributes)) {
@@ -49,12 +25,6 @@ abstract class Model
         }
     }
 
-    /**
-     * Fill the model with an array of attributes
-     *
-     * @param array $attributes Attributes to fill
-     * @return self
-     */
     public function fill(array $attributes): self
     {
         foreach ($attributes as $key => $value) {
@@ -65,23 +35,11 @@ abstract class Model
         return $this;
     }
 
-    /**
-     * Create a new model instance without saving
-     *
-     * @param array $attributes
-     * @return static
-     */
     public static function make(array $attributes): static
     {
         return new static($attributes);
     }
 
-    /**
-     * Create a new instance in the database.
-     *
-     * @param array $attributes
-     * @return static
-     */
     public static function create(array $attributes): static
     {
         $instance = new static();
@@ -97,11 +55,6 @@ abstract class Model
         return $instance;
     }
 
-    /**
-     * Get the table name for the model
-     *
-     * @return string
-     */
     protected function getTable(): string
     {
         if (empty($this->table)) {
@@ -111,11 +64,6 @@ abstract class Model
         return $this->table;
     }
 
-    /**
-     * Save the model to the database
-     *
-     * @return bool
-     */
     public function save(): bool
     {
         if ($this->exists) {
@@ -126,7 +74,6 @@ abstract class Model
             return $result > 0;
         } else {
             $insertedId = DB::table($this->getTable())->insert($this->attributes);
-
             if ($insertedId) {
                 $this->attributes[$this->primaryKey] = $insertedId;
                 $this->exists = true;
@@ -134,5 +81,37 @@ abstract class Model
             }
             return false;
         }
+    }
+
+    public static function all(): array
+    {
+        $instance = new static();
+        return DB::table($instance->getTable())->get();
+    }
+
+    public static function find(string $pk): ?static
+    {
+        $instance = new static();
+        $result = static::newQuery()
+            ->where($instance->getPrimaryKey(), '=', $pk)
+            ->first();
+
+        return $result ? new static($result) : null;
+    }
+
+    protected static function newQuery(): QueryBuilder
+    {
+        $instance = new static;
+        return new QueryBuilder(DB::getConnection(), $instance->getTable());
+    }
+
+    public static function __callStatic(string $method, array $arguments)
+    {
+        return static::newQuery()->$method(...$arguments);
+    }
+
+    public function getPrimaryKey(): string
+    {
+        return $this->primaryKey;
     }
 }

@@ -8,6 +8,8 @@ use Core\Views\View;
 Router::get('/', function () {
     class User extends \Core\Database\Model {}
 
+    dd(User::find(1));
+
     return Response::view(
         new View('welcome', [
             'frameworkName' => 'Lightcore'
