@@ -7,6 +7,7 @@ use Core\Providers\CoreServiceProvider;
 use Core\Http\Request;
 use Core\Http\Response;
 use Core\Http\Dispatcher;
+use Core\Providers\DatabaseServiceProvider;
 
 /**
  * Application kernel responsible for handling HTTP requests
@@ -51,7 +52,7 @@ class Kernel
     {
         $this->providers = [
             CoreServiceProvider::class,
-            // ex: AuthProviders::class,
+            DatabaseServiceProvider::class
         ];
     }
 
