@@ -6,6 +6,8 @@ use App\Controllers\UserController;
 use Core\Views\View;
 
 Router::get('/', function () {
+    class User extends \Core\Database\Model {}
+
     return Response::view(
         new View('welcome', [
             'frameworkName' => 'Lightcore'

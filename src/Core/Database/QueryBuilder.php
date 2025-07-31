@@ -290,9 +290,9 @@ class QueryBuilder
      * Insert a new row into the table.
      *
      * @param array<string, mixed> $data Column-value pairs to insert
-     * @return bool True if insert was successful, false otherwise
+     * @return int The ID of the last inserted row, false otherwise.
      */
-    public function insert(array $data): bool
+    public function insert(array $data): int
     {
         $columns = implode(', ', array_keys($data));
         $placeholders = implode(', ', array_fill(0, count($data), '?'));
@@ -300,7 +300,12 @@ class QueryBuilder
         $query = "INSERT INTO {$this->table} ({$columns}) VALUES ({$placeholders})";
 
         $stmt = $this->conn->query($query, array_values($data));
-        return $stmt->rowCount() > 0;
+
+        if ($stmt->rowCount() <= 0) {
+            throw new \RuntimeException("Insert failed");
+        }
+
+        return (int) $this->conn->lastInsertId();
     }
 
     /**

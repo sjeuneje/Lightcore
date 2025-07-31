@@ -3,7 +3,7 @@
 namespace Core\Database;
 
 use Core\Database\QueryBuilder;
-use Core\Support\Collection;
+use Core\Database\DB;
 
 /**
  * Base Model class providing ORM functionality
@@ -63,5 +63,76 @@ abstract class Model
             }
         }
         return $this;
+    }
+
+    /**
+     * Create a new model instance without saving
+     *
+     * @param array $attributes
+     * @return static
+     */
+    public static function make(array $attributes): static
+    {
+        return new static($attributes);
+    }
+
+    /**
+     * Create a new instance in the database.
+     *
+     * @param array $attributes
+     * @return static
+     */
+    public static function create(array $attributes): static
+    {
+        $instance = new static();
+        $instance->fill($attributes);
+
+        $insertedId = DB::table($instance->getTable())->insert($instance->attributes);
+        if (!$insertedId) {
+            throw new \RuntimeException("Error while adding a new row in the {$instance->getTable()} table.");
+        }
+
+        $instance->attributes[$instance->primaryKey] = $insertedId;
+        $instance->exists = true;
+        return $instance;
+    }
+
+    /**
+     * Get the table name for the model
+     *
+     * @return string
+     */
+    protected function getTable(): string
+    {
+        if (empty($this->table)) {
+            $className = (new \ReflectionClass($this))->getShortName();
+            return strtolower($className) . 's';
+        }
+        return $this->table;
+    }
+
+    /**
+     * Save the model to the database
+     *
+     * @return bool
+     */
+    public function save(): bool
+    {
+        if ($this->exists) {
+            $id = $this->attributes[$this->primaryKey];
+            $result = DB::table($this->getTable())
+                ->where($this->primaryKey, '=', $id)
+                ->update($this->attributes);
+            return $result > 0;
+        } else {
+            $insertedId = DB::table($this->getTable())->insert($this->attributes);
+
+            if ($insertedId) {
+                $this->attributes[$this->primaryKey] = $insertedId;
+                $this->exists = true;
+                return true;
+            }
+            return false;
+        }
     }
 }

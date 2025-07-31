@@ -129,6 +129,16 @@ class Connection
     }
 
     /**
+     * Get last inserted ID
+     *
+     * @return string|false
+     */
+    public function lastInsertId(): string|false
+    {
+        return $this->pdo->lastInsertId();
+    }
+
+    /**
      * Close database connection and cleanup resources.
      *
      * @return void
