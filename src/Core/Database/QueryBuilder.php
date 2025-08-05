@@ -8,8 +8,6 @@ namespace Core\Database;
  * Provides a fluent interface for building and executing SQL queries with
  * support for SELECT, INSERT, UPDATE, DELETE operations, joins, conditions,
  * ordering, and limiting results.
- *
- * @version 1.0.0
  */
 class QueryBuilder
 {

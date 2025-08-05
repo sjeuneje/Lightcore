@@ -176,14 +176,15 @@ abstract class Model
     }
 
     /**
-     * Create a new QueryBuilder instance for the model's table.
+     * Create a new ModelQuery instance for the model's table.
      *
-     * @return QueryBuilder QueryBuilder instance
+     * @return ModelQuery ModelQuery instance
      */
-    protected static function newQuery(): QueryBuilder
+    protected static function newQuery(): ModelQuery
     {
         $instance = new static;
-        return new QueryBuilder(DB::getConnection(), $instance->getTable());
+        $qb = new QueryBuilder(DB::getConnection(), $instance->getTable());
+        return new ModelQuery($qb, static::class);
     }
 
     /**
