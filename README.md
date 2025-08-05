@@ -2,6 +2,8 @@
 Lightcore framework in progresss...
 ===================================
 
+the goal of this project is to learn how PHP frameworks are build by crafting a lightweight one. 
+
 - Autoloading & Namespace: Automatic class loading following PSR-4 standards.
 - Service Container: Manages dependencies and service resolution.
 - Request/Response HTTP: Encapsulates input and output data.

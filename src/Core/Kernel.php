@@ -91,7 +91,7 @@ class Kernel
         $request = $request ?? $this->container->get(Request::class);
 
         // Load routes
-        require_once __DIR__ . '/../../routes/web.php';
+        require_once BASE_PATH . '/routes/web.php';
 
         // Dispatch request and get response
         return Dispatcher::dispatch($request);

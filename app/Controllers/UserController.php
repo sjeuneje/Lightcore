@@ -9,11 +9,11 @@ use Core\Http\Response;
 
 class UserController extends BaseController
 {
-    public function index(Request $request): Response
+    public function index(): Response
     {
         $data = DB::table('users')
             ->select('users.*', 'tasks.*')
-            ->join('tasks', 'users.id', '=', 'tasks.user_id')
+            ->leftJoin('tasks', 'users.id', '=', 'tasks.user_id')
             ->get();
 
         return Response::json($data);

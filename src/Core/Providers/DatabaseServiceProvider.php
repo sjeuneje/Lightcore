@@ -2,6 +2,7 @@
 
 namespace Core\Providers;
 
+use Core\Config;
 use Core\Container;
 use Core\Database\Connection;
 use Core\Database\DB;
@@ -39,10 +40,10 @@ class DatabaseServiceProvider extends ServiceProvider
         // Register database connection as singleton
         $container->singleton(Connection::class, function() {
             $config = [
-                'DB_NAME' => $_ENV['DB_NAME'] ?? throw new Exception('DB_NAME not configured'),
-                'DB_HOST' => $_ENV['DB_HOST'] ?? throw new Exception('DB_HOST not configured'),
-                'DB_USER' => $_ENV['DB_USER'] ?? throw new Exception('DB_USER not configured'),
-                'DB_PASS' => $_ENV['DB_PASS'] ?? '',
+                'DB_NAME' => Config::get('db.name'),
+                'DB_HOST' => Config::get('db.host'),
+                'DB_USER' => Config::get('db.user'),
+                'DB_PASS' => Config::get('db.pass'),
             ];
 
             $connection = new Connection($config);
